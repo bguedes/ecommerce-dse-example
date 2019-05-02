@@ -1,0 +1,46 @@
+Total number of tables: 52
+----------------
+Keyspace : aurabute
+	Read Count: 0
+	Read Latency: NaN ms
+	Write Count: 100663
+	Write Latency: 0.011142028352026066 ms
+	Pending Flushes: 0
+		Table: product
+		SSTable count: 1
+		Space used (live): 29558360
+		Space used (total): 29558360
+		Space used by snapshots (total): 61249
+		Off heap memory used (total): 132016
+		SSTable Compression Ratio: 0.50290608218467
+		Number of partitions (estimate): 98374
+		Memtable cell count: 0
+		Memtable data size: 0
+		Memtable off heap memory used: 0
+		Memtable switch count: 4
+		Local read count: 0
+		Local read latency: NaN ms
+		Local write count: 100249
+		Local write latency: 0.011 ms
+		Pending flushes: 0
+		Percent repaired: 0.0
+		Bytes repaired: 0.000KiB
+		Bytes unrepaired: 53.794MiB
+		Bytes pending repair: 0.000KiB
+		Bloom filter false positives: 0
+		Bloom filter false ratio: 0.00000
+		Bloom filter space used: 125136
+		Bloom filter off heap memory used: 125128
+		Index summary off heap memory used: 0
+		Compression metadata off heap memory used: 6888
+		Compacted partition minimum bytes: 259
+		Compacted partition maximum bytes: 924
+		Compacted partition mean bytes: 618
+		Average live cells per slice (last five minutes): 11358.846153846154
+		Maximum live cells per slice (last five minutes): 20479
+		Average tombstones per slice (last five minutes): 1.0
+		Maximum tombstones per slice (last five minutes): 1
+		Dropped Mutations: 0
+		Failed Replication Count: null
+
+----------------

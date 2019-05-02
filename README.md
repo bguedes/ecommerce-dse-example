@@ -4,52 +4,26 @@
 
 ### Definition keyspace for DSE
 
-```sql
-CREATE KEYSPACE IF NOT EXISTS mykeyspace 
-WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'DC1' : 1;
-```
-
-Definition tables for DSE:
-
-```sql
-CREATE TYPE IF NOT EXISTS "mykeyspace".adresse_udt (
-   address_name text,
-   street       text,
-   locality     text,
-   region       text,
-   zipcode      text,
-   country      text
-);
-
-CREATE TABLE IF NOT EXISTS "mykeyspace"."user" (
-  "user_id"   uuid,
-  "first_name"    text,
-  "last_name"     text,
-  "gender"        text,
-  "username"      text,
-  "email_address" text,
-  "home_phone"    text,
-  "mobile_phone"  text,
-  "created_on"    timestamp,
-  "register_date" timestamp,
-  "addresses"     set<frozen<aurabute.adresse_udt>>,
-  PRIMARY KEY ("user_id")
-);
-
-``` 
+You can find cassandra keyspace definition in data/cql/aurabute_schema.cql. Run it using cqlsh.
 
 ### Install Fakeit
 
 https://github.com/bentonam/fakeit
 
+### Generate fake data 
+
 For model generation use this command line:
 
 ```bash
-fakeit folder 'models_aurabute' 'data/models/*'
+fakeit folder 'aurabute_user' 'data/models/users.yaml'
+fakeit folder 'aurabute_product' 'data/models/products.yaml'
+fakeit folder 'aurabute_order' 'data/models/orders.yaml'
 ```
 
 It will create a folder named aurabute with generated json objects inside. For inserting data to DSE use dsbulk tool:
 
 ```bash
-dsbulk load -url * -k mykeyspace -t user -h '127.0.0.1' -c json
+dsbulk load -url 'aurabute_user' -k aurabute -t user -h '127.0.0.1' -c json
+dsbulk load -url 'aurabute_product' -k aurabute -t product -h '127.0.0.1' -c json
+dsbulk load -url 'aurabute_order' -k aurabute -t order -h '127.0.0.1' -c json
 ```
