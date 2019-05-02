@@ -55,9 +55,8 @@ CREATE TABLE IF NOT EXISTS "aurabute"."product" (
 )
 WITH CLUSTERING ORDER BY ("created_on" DESC);
 
-
 # Order table
-CREATE TABLE IF NOT EXISTS "aurabute"."order_by_user" (
+CREATE TABLE IF NOT EXISTS "aurabute"."order" (
   "order_id" uuid,
   "user_id" uuid,
   "order_date" timestamp,
@@ -66,6 +65,7 @@ CREATE TABLE IF NOT EXISTS "aurabute"."order_by_user" (
   "total_price" double,
   "billing_address" frozen<address>,
   "shipping_address" frozen<address>,
+  "shipping_price" double,
   PRIMARY KEY ("user_id", "order_date")
 )
 WITH CLUSTERING ORDER BY ("order_date" DESC);
