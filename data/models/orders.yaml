@@ -69,11 +69,11 @@ properties:
           });
         }
         return addresses;
-  tax:
+  shipping_price:
     type: double
-    description: The tax total
+    description: The shipping total price
     data:
-      build: "chance.dollar({ min: 2, max: 10 }).slice(1)"
+      build: "chance.dollar({ min: 5, max: 15 }).slice(1)"
   line_items:
     type: array
     description: The products that were ordered
@@ -100,8 +100,7 @@ properties:
     data:
       post_build: |
         let total = 0;
-        total += this.tax;
-        total += this.shipping_total;
+        total += this.shipping_price;
         for (let i = 0; i < this.line_items.length; i++) {
           total += this.line_items[i].sub_total;
         }

@@ -70,8 +70,6 @@ CREATE TABLE IF NOT EXISTS "aurabute"."order" (
 )
 WITH CLUSTERING ORDER BY ("order_date" DESC);
 
-
-
 # Order by user table
 CREATE TABLE IF NOT EXISTS "aurabute"."order_by_user" (
   "order_id" uuid,
