@@ -38,39 +38,51 @@ properties:
       build: |
         faker.random.arrayElement([ 'Pending', 'Processing', 'Cancelled', 'Shipped' ]);
   billing_address:
-    type: array
-    description: An array of addresses
-    data:
-      build: |
-        const addresses = [];
-        for (let i = 0, rand = 1; i < rand; i++) {
-          addresses.push({
-            address_name: faker.random.arrayElement([ 'Home', 'Work', 'Other' ]),
-            street: `${faker.address.streetAddress()} ${faker.address.streetSuffix()}`,
-            locality: faker.address.city(),
-            region: faker.address.stateAbbr(),
-            zipcode: faker.address.zipCode(),
-            country: 'US'
-          });
-        }
-        return addresses;
+    type: object
+    description: Fake billing address
+    properties:
+      address_name:
+        data:
+          build: "faker.random.arrayElement([ 'Home', 'Work', 'Other' ]);"
+      street:
+        data:
+          # This uses es6 and only works if your project already has it install or you're on node 6+
+          build: "`${faker.address.streetAddress()} ${faker.address.streetSuffix()}`"
+      locality:
+        data:
+          build: "faker.address.city()"
+      region:
+        data:
+          build: "faker.address.stateAbbr()"
+      zipcode:
+        data:
+          build: "faker.address.zipCode()"
+      country:
+        data:
+          build: "faker.address.countryCode()"
   shipping_address:
-    type: array
-    description: An array of addresses
-    data:
-      build: |
-        const addresses = [];
-        for (let i = 0, rand = 1; i < rand; i++) {
-          addresses.push({
-            address_name: faker.random.arrayElement([ 'Home', 'Work', 'Other' ]),
-            street: `${faker.address.streetAddress()} ${faker.address.streetSuffix()}`,
-            locality: faker.address.city(),
-            region: faker.address.stateAbbr(),
-            zipcode: faker.address.zipCode(),
-            country: 'US'
-          });
-        }
-        return addresses;
+    type: object
+    description: Fake shipping address
+    properties:
+      address_name:
+        data:
+          build: "faker.random.arrayElement([ 'Home', 'Work', 'Other' ]);"
+      street:
+        data:
+          # This uses es6 and only works if your project already has it install or you're on node 6+
+          build: "`${faker.address.streetAddress()} ${faker.address.streetSuffix()}`"
+      locality:
+        data:
+          build: "faker.address.city()"
+      region:
+        data:
+          build: "faker.address.stateAbbr()"
+      zipcode:
+        data:
+          build: "faker.address.zipCode()"
+      country:
+        data:
+          build: "faker.address.countryCode()"
   shipping_price:
     type: double
     description: The shipping total price
