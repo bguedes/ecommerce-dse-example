@@ -8,7 +8,7 @@ data:
     - products.yaml
     - users.yaml
   min: 1
-  max: 5
+  max: 1
 properties:
   order_id:
     type: string

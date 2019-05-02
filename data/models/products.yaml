@@ -5,7 +5,7 @@ key:
     build: `product_${this.product_id}`
 data:
  min: 1
- max: 10
+ max: 1
  pre_run: |
    globals.product_counter = 0;
 properties:
