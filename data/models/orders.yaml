@@ -1,0 +1,108 @@
+name: Orders
+type: object
+key: order_id
+data:
+  dependencies:
+    - products.yaml
+    - users.yaml
+  min: 1
+  max: 5
+properties:
+  order_id:
+    type: integer
+    description: The order_id
+    data:
+      build: |
+        let current_order_id = globals.orders_counter || 0;
+        current_order_id += 1;
+        globals.orders_counter = current_order_id;
+        return current_order_id;
+  user_id:
+    type: string
+    description: The user_id that placed the order
+    data:
+      build: |
+        return faker.random.arrayElement(documents.Users).user_id;
+  order_date:
+    type: integer
+    description: An epoch time of when the order was placed
+    data:
+      fake: "{{date.past}}"
+      post_build: "new Date(this.order_date).getTime();"
+  order_status:
+    type: string
+    description: The status of the order
+    data:
+      build: |
+        faker.random.arrayElement([ 'Pending', 'Processing', 'Cancelled', 'Shipped' ]);
+  billing_address:
+    type: array
+    description: An array of addresses
+    data:
+      build: |
+        const addresses = [];
+        for (let i = 0, rand = 1; i < rand; i++) {
+          addresses.push({
+            address_name: faker.random.arrayElement([ 'Home', 'Work', 'Other' ]),
+            street: `${faker.address.streetAddress()} ${faker.address.streetSuffix()}`,
+            locality: faker.address.city(),
+            region: faker.address.stateAbbr(),
+            zipcode: faker.address.zipCode(),
+            country: 'US'
+          });
+        }
+        return addresses;
+  shipping_address:
+    type: array
+    description: An array of addresses
+    data:
+      build: |
+        const addresses = [];
+        for (let i = 0, rand = 1; i < rand; i++) {
+          addresses.push({
+            address_name: faker.random.arrayElement([ 'Home', 'Work', 'Other' ]),
+            street: `${faker.address.streetAddress()} ${faker.address.streetSuffix()}`,
+            locality: faker.address.city(),
+            region: faker.address.stateAbbr(),
+            zipcode: faker.address.zipCode(),
+            country: 'US'
+          });
+        }
+        return addresses;
+  tax:
+    type: double
+    description: The tax total
+    data:
+      build: "chance.dollar({ min: 2, max: 10 }).slice(1)"
+  line_items:
+    type: array
+    description: The products that were ordered
+    data:
+      build: |
+        const items = [];
+        for (let i = 0, count = chance.integer({ min: 1, max: 5 }); i < count; i++) {
+          const random = faker.random.arrayElement(documents.Products);
+          const product = {
+            product_id: random.product_id,
+            display_name: random.display_name,
+            short_description: random.short_description,
+            image: random.image,
+            price: random.sale_price || random.price,
+            qty: faker.random.number({ min: 1, max: 5 }),
+          };
+          product.sub_total = product.qty * product.price;
+          items.push(product);
+        }
+        return items;
+  total_price:
+    type: double
+    description: The grand total of the order
+    data:
+      post_build: |
+        let total = 0;
+        total += this.tax;
+        total += this.shipping_total;
+        for (let i = 0; i < this.line_items.length; i++) {
+          total += this.line_items[i].sub_total;
+        }
+        return chance.dollar({ min: total, max: total }).slice(1);

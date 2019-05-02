@@ -1,11 +1,15 @@
-Definition keyspace for DSE :
+## Ecommerce DSE Example
+
+
+
+### Definition keyspace for DSE
 
 ```sql
 CREATE KEYSPACE IF NOT EXISTS mykeyspace 
 WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'DC1' : 1;
 ```
 
-Definition tables for DSE :
+Definition tables for DSE:
 
 ```sql
 CREATE TYPE IF NOT EXISTS "mykeyspace".adresse_udt (
@@ -34,17 +38,17 @@ CREATE TABLE IF NOT EXISTS "mykeyspace"."user" (
 
 ``` 
 
-Install Fakeit :
+### Install Fakeit
 
 https://github.com/bentonam/fakeit
 
-For model generation use this command line :
+For model generation use this command line:
 
 ```bash
-fakeit folder 'models' '*'
+fakeit folder 'models_aurabute' 'data/models/*'
 ```
 
-For inserting data to DSE use dsbulk tool :
+It will create a folder named aurabute with generated json objects inside. For inserting data to DSE use dsbulk tool:
 
 ```bash
 dsbulk load -url * -k mykeyspace -t user -h '127.0.0.1' -c json

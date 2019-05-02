@@ -1,0 +1,60 @@
+name: Products
+type: object
+key: product_id
+data:
+ min: 1
+ max: 10
+ pre_run: |
+   globals.product_counter = 0;
+properties:
+ product_id:
+   type: string
+   description: The product id
+   data:
+     build: "faker.random.uuid();"
+ price:
+   type: double
+   description: The product price
+   data:
+     build: "chance.floating({ min: 0, max: 150, fixed: 2 });"
+ sale_price:
+   type: double
+   description: The product sales price
+   data:
+     build: "chance.floating({ min: 0, max: this.price * chance.floating({ min: 0, max: 0.99, fixed: 2 }), fixed: 2 });"
+ display_name:
+   type: string
+   description: The users username
+   data:
+     fake: "{{commerce.productName}}"
+ description_short:
+   type: string
+   description: The users username
+   data:
+     fake: "{{lorem.paragraphs(1)}}"
+ description_long:
+   type: string
+   description: The product long description
+   data:
+     fake: "{{lorem.paragraphs(1)}}"
+ stock:
+   type: number
+   description: The product short description
+   data:
+     build: "faker.random.number({ min: 1, max: 5 });"
+ category:
+   type: string
+   description:
+   data:
+     fake: "{{commerce.department}}"
+ image:
+   type: string
+   description: Image URL representing the product.
+   data:
+     fake: "{{image.image}}"
+ modified_on:
+   type: integer
+   description: An epoch time of when the user was created
+   data:
+     fake: "{{date.past}}"
+     post_build: "new Date(this.modified_on).getTime();"
