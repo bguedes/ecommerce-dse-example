@@ -1,6 +1,8 @@
 name: Products
 type: object
-key: product_id
+key:
+  data:
+    build: `product_${this.product_id}`
 data:
  min: 1
  max: 10
@@ -12,6 +14,11 @@ properties:
    description: The product id
    data:
      build: "faker.random.uuid();"
+ sku:
+   type: integer
+   description: The product sku
+   data:
+     build: "faker.random.number();"
  price:
    type: double
    description: The product price
@@ -53,6 +60,12 @@ properties:
    data:
      fake: "{{image.image}}"
  modified_on:
+   type: integer
+   description: An epoch time of when the user was created
+   data:
+     fake: "{{date.past}}"
+     post_build: "new Date(this.modified_on).getTime();"
+ created_on:
    type: integer
    description: An epoch time of when the user was created
    data:

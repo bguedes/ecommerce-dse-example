@@ -1,6 +1,8 @@
 name: Orders
 type: object
-key: order_id
+key:
+  data:
+    build: `order_${this.order_id}`
 data:
   dependencies:
     - products.yaml
@@ -9,7 +11,7 @@ data:
   max: 5
 properties:
   order_id:
-    type: integer
+    type: string
     description: The order_id
     data:
       build: |
