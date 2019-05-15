@@ -15,9 +15,9 @@ https://github.com/bentonam/fakeit
 For model generation use this command line:
 
 ```bash
-fakeit folder 'aurabute_user' 'data/models/users.yaml'
-fakeit folder 'aurabute_product' 'data/models/products.yaml'
-fakeit folder 'aurabute_order' 'data/models/orders.yaml'
+fakeit folder 'aurabute_user' --count 10000 'data/models/users.yaml'
+fakeit folder 'aurabute_product' --count 10000 'data/models/products.yaml'
+fakeit folder 'aurabute_order' --count 10000 'data/models/orders.yaml'
 ```
 
 It will create a folder named aurabute with generated json objects inside. For inserting data to DSE use dsbulk tool:
