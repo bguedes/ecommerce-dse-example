@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS "aurabute"."user" (
   "home_phone" text,   
   "mobile_phone" text,   
   "created_on" timestamp,   
-  "addresses" frozen<address>,   
+  "addresses" list<frozen<address>>,   
   PRIMARY KEY ("user_id")
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS "aurabute"."order" (
   "billing_address" frozen<address>,
   "shipping_address" frozen<address>,
   "shipping_price" double,
-  PRIMARY KEY ("user_id", "order_date")
+  PRIMARY KEY (("user_id"), "order_date")
 )
 WITH CLUSTERING ORDER BY ("order_date" DESC);
 
