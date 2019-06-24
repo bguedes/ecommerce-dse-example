@@ -1,0 +1,37 @@
+version: '2'
+networks:
+  default:
+    external:
+      name: ecommerce-demo
+services:
+  seed_node:
+    image: "datastax/dse-server:6.7.3"
+    environment:
+      - DS_LICENSE=accept
+      - JVM_EXTRA_OPTS=-Xmx1g -Xms1g
+      - NUM_TOKENS=32
+    # Allow DSE to lock memory with mlock
+    cap_add:
+    - IPC_LOCK
+    ulimits:
+      memlock: -1
+   # volumes:
+   # - ./data_seed:/var/lib/cassandra/data:z
+   # - ./logs_seed:/var/lib/cassandra/commit_logs:z
+  node:
+    image: "datastax/dse-server:6.7.3"
+    environment:
+      - DS_LICENSE=accept
+      - SEEDS=seed_node
+      - JVM_EXTRA_OPTS=-Xmx1g -Xms1g
+      - NUM_TOKENS=32
+    depends_on:
+      - seed_node
+    # Allow DSE to lock memory with mlock
+    cap_add:
+    - IPC_LOCK
+    ulimits:
+      memlock: -1
+   # volumes:
+   # - ./data:/var/lib/cassandra/data:z
+   # - ./logs:/var/lib/cassandra/commit_logs:z

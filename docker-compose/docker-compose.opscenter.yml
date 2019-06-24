@@ -1,0 +1,15 @@
+version: '2'
+services:
+  opscenter:
+    image: "datastax/dse-opscenter:6.7.3"
+    ports:
+      - 8888:8888
+    environment:
+      - DS_LICENSE=accept
+  seed_node:
+    depends_on:
+      - opscenter
+  node:
+    depends_on:
+      - opscenter
+

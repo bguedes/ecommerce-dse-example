@@ -1,9 +1,9 @@
 
-CREATE KEYSPACE IF NOT EXISTS "aurabute" WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};
+CREATE KEYSPACE IF NOT EXISTS "aurabute" WITH replication = {'class': 'NetworkTopologyStrategy', 'dc1':'2'};
 
 USE "aurabute";
 
-# Create UDT
+-- Create UDT
 CREATE TYPE IF NOT EXISTS "aurabute".address (
   "address_name" text,
   "street" text,
@@ -22,7 +22,7 @@ CREATE TYPE IF NOT EXISTS "aurabute".item (
   "sub_total" double
 );
 
-# User table
+-- User table
 CREATE TABLE IF NOT EXISTS "aurabute"."user" (   
   "user_id" uuid,   
   "first_name" text,   
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS "aurabute"."user" (
   PRIMARY KEY ("user_id")
 );
 
-# Product table
+-- Product table
 CREATE TABLE IF NOT EXISTS "aurabute"."product" (
   "sku" int,
   "product_id" uuid,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS "aurabute"."product" (
 )
 WITH CLUSTERING ORDER BY ("created_on" DESC);
 
-# Order table
+-- Order table
 CREATE TABLE IF NOT EXISTS "aurabute"."order" (
   "order_id" uuid,
   "user_id" uuid,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS "aurabute"."order" (
 )
 WITH CLUSTERING ORDER BY ("order_date" DESC);
 
-# Order by user table
+-- Order by user table
 CREATE TABLE IF NOT EXISTS "aurabute"."order_by_user" (
   "order_id" uuid,
   "user_id" uuid,
