@@ -1,0 +1,55 @@
+name: Carts
+type: object
+key:
+  data:
+    build: `cart_${this.cart_id}`
+data:
+  dependencies:
+    - products.yaml
+    - users.yaml
+  min: 1
+  max: 1
+properties:
+  cart_id:
+    type: string
+    description: The cart_id
+    data:
+      build: "faker.random.uuid();"
+  customer_number:
+    type: string
+    description: The customer_number that placed the order
+    data:
+      build: "faker.random.number();"
+  customer_email:
+    type: string
+    description: The users email address
+    data:
+      fake: "{{internet.email}}"
+  country:
+    type: string
+    description: The status of the order
+    data:
+      build: "faker.address.countryCode()"
+  product_id_list:
+    type: array
+    description: The products that were ordered
+    data:
+      build: |
+        const items = [];
+        for (let i = 0, count = chance.integer({ min: 1, max: 8 }); i < count; i++) {
+          const random = faker.random.arrayElement(documents.Products);
+            items.push(random.product_id);
+        }
+        return items;
+  skus_id_list:
+    type: array
+    description: The skus that were ordered
+    data:
+      build: |
+        const items = [];
+        for (let i = 0, count = chance.integer({ min: 1, max: 8 }); i < count; i++) {
+          const random = faker.random.arrayElement(documents.Products);
+            items.push(random.product_id);
+        }
+        return items;
+
