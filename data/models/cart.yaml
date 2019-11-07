@@ -15,7 +15,12 @@ properties:
     description: The cart_id
     data:
       build: "faker.random.uuid();"
-  customer_number:
+  source_cart_id:
+    type: string
+    description: The source_cart_id
+    data:
+      build: "faker.random.number();"
+  customer_id:
     type: string
     description: The customer_number that placed the order
     data:
@@ -25,12 +30,12 @@ properties:
     description: The users email address
     data:
       fake: "{{internet.email}}"
-  country:
+  country_code:
     type: string
     description: The status of the order
     data:
       build: "faker.address.countryCode()"
-  product_id_list:
+  product_ids:
     type: array
     description: The products that were ordered
     data:
@@ -41,7 +46,7 @@ properties:
             items.push(random.product_id);
         }
         return items;
-  skus_id_list:
+  sku_ids:
     type: array
     description: The skus that were ordered
     data:
