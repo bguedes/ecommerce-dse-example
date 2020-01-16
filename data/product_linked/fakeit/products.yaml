@@ -1,0 +1,27 @@
+name: Products
+type: object
+key:
+  data:
+    build: `product_${this.product_id}`
+data:
+ min: 1
+ max: 1
+properties:
+ product_id:
+   type: string
+   description: The product id
+   data:
+     build: "faker.random.uuid();"
+ sku:
+   type: integer
+   description: The product sku
+   data:
+     build: "faker.random.number();"
+ price:
+   type: double
+   description: The product price
+   data:
+     build: "chance.floating({ min: 0, max: 150, fixed: 2 });"
+ colour:
+   data:
+     build: "faker.random.arrayElement([ 'Blue', 'Reb', 'White', 'Black', 'Pink' ])"
